@@ -2,3 +2,4 @@
   - hosts: pve0
     roles:
       - role: ironicbadger.proxmox_nag_removal
+      - role: pve0
