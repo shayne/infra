@@ -1,0 +1,49 @@
+---
+- hosts: "{{ hostname }}"
+  become: true
+
+  vars:
+    user: shayne
+
+  tasks:
+    - name: Install base packages
+      ansible.builtin.package:
+        name:
+          - sudo
+          - fish
+          - vim
+        state: present
+    - name: Set up users
+      include_role:
+        name: singleplatform-eng.users
+      vars:
+        users:
+          - username: "{{ user }}"
+            ssh_key:
+              - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKxq71dQw4zBQAe3mtfiNwuCwP0Lu8x9PdRVxy2+T8Pw"
+            shell: /usr/bin/fish
+    - name: Allow the {{ user }} user to run all commands with sudo
+      community.general.sudoers:
+        name: "{{ user }}-do"
+        state: present
+        user: "{{ user }}"
+        commands: ALL
+    - name: Remove motd file
+      file:
+        path: /etc/motd
+        state: absent
+    - name: Install starship
+      include_role:
+        name: andrewrothstein.starship
+    - name: Ensure starship is initialized in fish shell config
+      lineinfile:
+        path: "/home/{{ user }}/.config/fish/config.fish"
+        line: "{{ item }}"
+        state: present
+        create: yes
+        owner: "{{ user }}"
+        group: "{{ user }}"
+      loop:
+        - 'set fish_greeting ""'
+        - "starship init fish | source"
+
