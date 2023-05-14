@@ -14,6 +14,7 @@
           buildInputs = with pkgs; [
             ansible
             colmena
+            deploy-rs
             sshpass
             terraform
 

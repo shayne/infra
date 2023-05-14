@@ -1,0 +1,5 @@
+dependencies:
+  - role: artis3n.tailscale
+    vars:
+      tailscale_args: "--ssh --advertise-exit-node --advertise-routes=10.2.0.0/23,10.2.2.0/24,10.2.4.0/24,10.2.5.0/24,10.2.6.0/24,10.2.7.0/30,10.2.7.16/28"
+      tailscale_authkey: "{{ lookup('community.general.passwordstore', 'tailscale-auth-key')}}"
