@@ -9,9 +9,11 @@
     - name: Install base packages
       ansible.builtin.package:
         name:
-          - sudo
           - fish
+          - net-tools
+          - sudo
           - vim
+          - tmux
         state: present
     - name: Set up users
       include_role:
@@ -46,4 +48,8 @@
       loop:
         - 'set fish_greeting ""'
         - "starship init fish | source"
-
+    - name: Install speedtest-cli
+      include_role:
+        name: darkwizard242.speedtest
+      vars:
+        speedtest_repo_debian: "deb https://packagecloud.io/ookla/speedtest-cli/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main"

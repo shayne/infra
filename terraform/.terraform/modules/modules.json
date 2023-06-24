@@ -1,1 +1,1 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"cts","Source":"./cts","Dir":"cts"},{"Key":"vms","Source":"./vms","Dir":"vms"}]}
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"cts","Source":"./cts","Dir":""},{"Key":"cts.syncthing","Source":"../lib/nixct","Dir":"lib/nixct"},{"Key":"syncthing","Source":"./lib/nixct","Dir":"lib/nixct"},{"Key":"temptest","Source":"./lib/nixct","Dir":"lib/nixct"},{"Key":"vms","Source":"./vms","Dir":"vms"}]}

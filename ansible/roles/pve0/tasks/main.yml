@@ -1,6 +1,15 @@
-- ansible.posix.sysctl:
+- name: "Forward IPv4"
+  ansible.posix.sysctl:
     name: net.ipv4.ip_forward
-    value: '1'
+    value: "1"
     sysctl_set: true
     state: present
     reload: true
+- name: "Install packages"
+  ansible.builtin.package:
+    name:
+      - iperf3
+    state: present
+- name: "Start Tailscale Serve"
+  command: tailscale serve https / https+insecure://127.0.0.1:8006
+  become: true

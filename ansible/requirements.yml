@@ -3,6 +3,7 @@ roles:
 - src: singleplatform-eng.users
 - src: andrewrothstein.starship
 - src: artis3n.tailscale
+- src: darkwizard242.speedtest
 
 collections:
 - ansible.posix
