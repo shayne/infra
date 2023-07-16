@@ -8,10 +8,8 @@
 
   outputs = { self, nixpkgs, flake-utils, agenix }:
     flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
+      let pkgs = nixpkgs.legacyPackages.${system};
+      in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             ansible

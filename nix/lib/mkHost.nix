@@ -13,14 +13,16 @@ let
     ];
   };
   hostname = attrs.hostname or name;
-  
+
 in utils.recursiveMergeAttrs [
   (if (attrs.lxc or null != null) then {
-    terraformVars.nixos_lxc."${name}" = attrs.lxc // (
-      if (name != hostname && attrs.lxc.hostname or null == null) then {
+    terraformVars.nixos_lxc."${name}" = attrs.lxc
+      // (if (name != hostname && attrs.lxc.hostname or null == null) then {
         hostname = hostname;
-      } else {});
-  } else {})
+      } else
+        { });
+  } else
+    { })
 
   {
     nixosConfigurations."${name}" = system;
@@ -32,7 +34,8 @@ in utils.recursiveMergeAttrs [
           path = deploy-rs.lib.x86_64-linux.activate.nixos system;
           user = "root";
           sshUser = "root";
-          sshOpts = [ "-o StrictHostKeyChecking=no" "-o UserKnownHostsFile=/dev/null" ];
+          sshOpts =
+            [ "-o StrictHostKeyChecking=no" "-o UserKnownHostsFile=/dev/null" ];
         };
       };
     };

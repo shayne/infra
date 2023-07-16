@@ -1,10 +1,7 @@
-{ config, ... }:
-{
+{ config, ... }: {
   services.vaultwarden = {
     enable = true;
-    config = {
-      ROCKET_PORT = 8080;
-    };
+    config = { ROCKET_PORT = 8080; };
   };
 
   services.reverseProxy = {

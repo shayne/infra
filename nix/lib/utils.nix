@@ -1,4 +1,1 @@
-{ lib }:
-{
-  recursiveMergeAttrs = builtins.foldl' lib.recursiveUpdate { };
-}
+{ lib }: { recursiveMergeAttrs = builtins.foldl' lib.recursiveUpdate { }; }

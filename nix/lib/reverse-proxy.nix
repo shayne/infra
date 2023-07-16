@@ -1,11 +1,8 @@
 { config, lib, options, ... }:
 with lib;
-let
-  cfg = config.services.reverseProxy;
+let cfg = config.services.reverseProxy;
 in {
-  imports = [
-    ./acme.nix
-  ];
+  imports = [ ./acme.nix ];
 
   options = {
     services.reverseProxy = {
@@ -45,9 +42,7 @@ in {
       enableACME = true;
       forceSSL = true;
       acmeRoot = null;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
-      };
+      locations."/" = { proxyPass = "http://127.0.0.1:${toString cfg.port}"; };
     };
   };
 }
