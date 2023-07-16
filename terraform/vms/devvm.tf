@@ -1,7 +1,5 @@
 resource "proxmox_virtual_environment_vm" "devvm" {
   name        = "devvm"
-  description = "Managed by Terraform"
-  tags        = ["terraform", "nixos"]
 
   node_name = "pve0"
 
@@ -40,5 +38,11 @@ resource "proxmox_virtual_environment_vm" "devvm" {
     device   = "hostpci0"
     id       = "0000:03:00.0"
     rom_file = "OVMF_CODE-pure-efi.fd"
+  }
+
+  efi_disk {
+    datastore_id = "array"
+    file_format = "raw"
+    pre_enrolled_keys = false
   }
 }

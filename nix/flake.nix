@@ -11,9 +11,7 @@
     let
       mkSystems = import ./lib/mkSystems.nix { inherit nixpkgs deploy-rs; };
     in
-    mkSystems {
-      syncthing = ./cts/syncthing.nix;
-    } //
+    mkSystems (import ./systems.nix) //
     {
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };

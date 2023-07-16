@@ -4,7 +4,11 @@ let
   domain = "home.ss.ht";
   system = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    modules = [ config ];
+    modules = [
+      "${nixpkgs}/nixos/modules/virtualisation/proxmox-lxc.nix"
+      ./common-lxc.nix
+      config
+    ];
   };
 in
 {
