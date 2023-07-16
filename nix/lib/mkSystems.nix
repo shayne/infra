@@ -1,8 +1,8 @@
 { nixpkgs, deploy-rs }:
-pairs:
+systemDefs:
 let
+  utils = import ./utils.nix { lib = nixpkgs.lib; };
   mkHost = import ./mkHost.nix { inherit nixpkgs deploy-rs; };
-  recursiveMergeAttrs = builtins.foldl' nixpkgs.lib.recursiveUpdate { };
-  hosts = nixpkgs.lib.mapAttrsToList (name: config: mkHost { inherit name config; }) pairs;
+  hostDefs = nixpkgs.lib.mapAttrsToList (name: attrs: mkHost { inherit name attrs; }) systemDefs;
 in
-recursiveMergeAttrs hosts
+utils.recursiveMergeAttrs hostDefs

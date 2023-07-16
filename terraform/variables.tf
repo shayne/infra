@@ -1,4 +1,4 @@
-variable "nixos_cts" {
+variable "nixos_lxc" {
   description = "Map of NixOS LXC container definitions"
   type = map(object({
     hostname                  = optional(string)

@@ -9,7 +9,7 @@
 
   services.reverseProxy = {
     enable = true;
-    host = "vault.home.ss.ht";
+    host = "vw.home.ss.ht";
     port = config.services.vaultwarden.config.ROCKET_PORT;
   };
 

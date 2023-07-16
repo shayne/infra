@@ -19,6 +19,7 @@
             deploy-rs
             sshpass
             terraform
+            terranix
 
             nixpkgs-fmt
 

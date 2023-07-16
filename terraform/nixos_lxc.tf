@@ -1,5 +1,5 @@
-resource "proxmox_virtual_environment_container" "nixos_ct" {
-  for_each = var.nixos_cts
+resource "proxmox_virtual_environment_container" "nixos_lxc" {
+  for_each = var.nixos_lxc
 
   node_name = each.value.node_name
 
@@ -55,16 +55,20 @@ resource "proxmox_virtual_environment_container" "nixos_ct" {
     nesting = each.value.features_nesting
   }
 
-  provisioner "local-exec" {
-    command = "sleep 1 && ssh-keyscan -H ${self.initialization.0.hostname}.${self.initialization.0.dns.0.domain} >> ~/.ssh/known_hosts"
-  }
+  # provisioner "local-exec" {
+  #   command = "timeout 15s sh -c 'while [ -z \"$(dig +short ${self.initialization.0.hostname}.${self.initialization.0.dns.0.domain})\" ]; do sleep 1; done'"
+  # }
+
+  # provisioner "local-exec" {
+  #   command = "ssh-keyscan -H ${self.initialization.0.hostname}.${self.initialization.0.dns.0.domain} >> ~/.ssh/known_hosts"
+  # }
 
   provisioner "local-exec" {
-    command = "cd ../nix && deploy .#${self.initialization.0.hostname}"
+    command = "cd $(git rev-parse --show-toplevel)/nix && deploy .#${each.key}}"
   }
 
-  provisioner "local-exec" {
-    when    = destroy
-    command = "ssh-keygen -R ${self.initialization.0.hostname}.${self.initialization.0.dns.0.domain}"
-  }
+  # provisioner "local-exec" {
+  #   when    = destroy
+  #   command = "ssh-keygen -R ${self.initialization.0.hostname}.${self.initialization.0.dns.0.domain}"
+  # }
 }
