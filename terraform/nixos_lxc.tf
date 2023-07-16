@@ -55,20 +55,7 @@ resource "proxmox_virtual_environment_container" "nixos_lxc" {
     nesting = each.value.features_nesting
   }
 
-  # provisioner "local-exec" {
-  #   command = "timeout 15s sh -c 'while [ -z \"$(dig +short ${self.initialization.0.hostname}.${self.initialization.0.dns.0.domain})\" ]; do sleep 1; done'"
-  # }
-
-  # provisioner "local-exec" {
-  #   command = "ssh-keyscan -H ${self.initialization.0.hostname}.${self.initialization.0.dns.0.domain} >> ~/.ssh/known_hosts"
-  # }
-
   provisioner "local-exec" {
-    command = "cd $(git rev-parse --show-toplevel)/nix && deploy .#${each.key}}"
+    command = "cd $(git rev-parse --show-toplevel) && deploy .#${each.key}}"
   }
-
-  # provisioner "local-exec" {
-  #   when    = destroy
-  #   command = "ssh-keygen -R ${self.initialization.0.hostname}.${self.initialization.0.dns.0.domain}"
-  # }
 }

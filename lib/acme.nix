@@ -16,8 +16,10 @@
 
   # Sleep for 5 seconds before starting the service to allow the network to
   # come up. This is a workaround for a DNS race condition.
-  systemd.services = lib.mapAttrs' (name: _:
-    lib.nameValuePair "acme-${name}" {
-      serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
-    }) config.security.acme.certs;
+  systemd.services = lib.mapAttrs'
+    (name: _:
+      lib.nameValuePair "acme-${name}" {
+        serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
+      })
+    config.security.acme.certs;
 }

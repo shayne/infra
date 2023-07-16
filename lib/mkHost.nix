@@ -14,13 +14,14 @@ let
   };
   hostname = attrs.hostname or name;
 
-in utils.recursiveMergeAttrs [
+in
+utils.recursiveMergeAttrs [
   (if (attrs.lxc or null != null) then {
     terraformVars.nixos_lxc."${name}" = attrs.lxc
       // (if (name != hostname && attrs.lxc.hostname or null == null) then {
-        hostname = hostname;
-      } else
-        { });
+      hostname = hostname;
+    } else
+      { });
   } else
     { })
 

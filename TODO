@@ -1,3 +1,3 @@
-- [ ] systems.nix: allow config to be file or module
+- [x] systems.nix: allow config to be file or module
 - [ ] systems.nix: use module for proper assertions and LSP support
     - [ ] terraform: move variable def into nix and use terranix?
