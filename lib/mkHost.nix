@@ -7,10 +7,10 @@ let
   hostname = attrs.hostname or name;
   system = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    modules = (if (attrs.lxc or null != null) then [
-      "${nixpkgs}/nixos/modules/virtualisation/proxmox-lxc.nix"
-    ] else [
+    modules = (if (attrs.vm or null != null) then [
       ./proxmox-vm.nix
+    ] else [
+      "${nixpkgs}/nixos/modules/virtualisation/proxmox-lxc.nix"
     ])
     ++ [
       ./system-shared.nix

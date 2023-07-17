@@ -1,7 +1,8 @@
 { config, lib, options, ... }:
 with lib;
 let cfg = config.services.reverseProxy;
-in {
+in
+{
   imports = [ ./acme.nix ];
 
   options = {

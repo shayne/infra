@@ -15,8 +15,12 @@
 
   outputs = { self, nixpkgs, flake-utils, deploy-rs, terranix, ... }@inputs:
     with flake-utils.lib;
-    let mkSystems = import ./lib/mkSystems.nix { inherit nixpkgs deploy-rs; };
-    in mkSystems (import ./systems.nix) // eachSystem [ system.x86_64-linux ]
+    let
+      systemsConfig = sanitize (evaluateConfiguration (import ./systems.nix));
+      mkSystems = import ./lib/mkSystems.nix { inherit nixpkgs deploy-rs; };
+    in
+    mkSystems (import ./systems.nix) //
+    eachSystem [ system.x86_64-linux ]
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
