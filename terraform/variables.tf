@@ -13,3 +13,17 @@ variable "nixos_lxc" {
     features_nesting          = optional(bool, true)
   }))
 }
+
+variable "nixos_vm" {
+  description = "Map of NixOS VM definitions"
+  type = map(object({
+    hostname                  = optional(string)
+    domain                    = optional(string, "home.ss.ht")
+    node_name                 = optional(string, "pve0")
+    cpu_cores                 = optional(number, 2)
+    memory_dedicated          = optional(number, 4096)
+    disk_datastore_id         = optional(string, "array")
+    disk_size                 = optional(number, 8)
+    network_interface_vlan_id = optional(number, 3)
+  }))
+}

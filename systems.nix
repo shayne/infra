@@ -7,6 +7,14 @@
   };
 
   # vaultwarden = {
+  #   config = ./configs/vaultwarden.nix;
+  #   hostname = "vw";
+  #   vm = {
+  #     # use defaults
+  #   };
+  # };
+
+  # vaultwarden = {
   #   # config = ./configs/vaultwarden.nix;
   #   config = { config, ... }: {
   #     services.vaultwarden = {
